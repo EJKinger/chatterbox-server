@@ -56,15 +56,18 @@ exports.requestHandler = function(request, response) {
   // node to actually send all the data over to the client.
 
   if (request.method === "GET"){
-    //Find the data.
-    //Return the data.
     var theData = messages.data;
     
   }
   else if (request.method === "POST"){
-    console.log("This is a post.");
     statusCode = 201;
-    //response.end({message: 'hi'});
+    var messageData = '';
+    request.on('data', function(data){
+      messageData += data;
+    });
+    request.on('end', function(){
+      messages.data.results.push(JSON.parse(messageData));
+    });
   }
 
   if (request.url !== '/classes/messages' && request.url !== '/classes/room1'){

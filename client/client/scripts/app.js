@@ -11,6 +11,7 @@
       type: 'GET',
       contentType: 'application/json',
       success: function(data) {
+        console.log('getData: ', data);
         getRooms(data);
         insertMessages(data, roomName);
         boldFriendsMessages();
@@ -77,7 +78,18 @@
     }
     rooms = _.uniq(rooms);
     rooms.forEach(function(item){
-      $('.roomsList').append("<option>" + item + "</option>");
+      var append = true;
+      if ($('.roomsList .user').length > 0){
+        $('.roomsList .user').each(function(index, option){
+          console.log('option: ' + option);
+          if (option.value === item){
+            append = false;
+          }
+        });
+      } 
+      if (append === true) {
+        $('.roomsList').append("<option class='user'>" + item + "</option>");
+      }
     });
   };
 
