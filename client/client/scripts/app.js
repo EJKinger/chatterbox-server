@@ -1,4 +1,4 @@
-$(document).ready(function(){
+  $(document).ready(function(){
   // GLOBAL VARIABLE TO PERSIST FRIENDS
   var friends = [];
 
@@ -7,7 +7,7 @@ $(document).ready(function(){
   */
   var getData = function(roomName){
     return $.ajax({
-      url: "https://api.parse.com/1/classes/chatterbox",
+      url: "http://127.0.0.1:3000/classes/messages",
       type: 'GET',
       contentType: 'application/json',
       success: function(data) {
@@ -18,13 +18,13 @@ $(document).ready(function(){
 
       error: function(data) {
         console.log(data);
-      }
+      } 
     });
   };
 
   var postMessage = function(message) {
     $.ajax({
-      url: "https://api.parse.com/1/classes/chatterbox",
+      url: "http://127.0.0.1:3000/classes/messages",
       type: 'POST',
       data: JSON.stringify(message),
       contentType: 'application/json',
